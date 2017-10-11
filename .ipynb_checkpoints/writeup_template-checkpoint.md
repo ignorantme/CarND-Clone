@@ -95,7 +95,7 @@ For details about how I created the training data, see the next section.
 As the first step I implemented the LeNet, but the result is never good, the car always drive out of the track. Then I use nVidia model mentioned on the course. It works better, at least can dirve on the straight road. But on the curves, it still drive directly to the water. Then I tried to get more data, three cameras, flipped, drive many laps. But the car still can't pass the first curve. The I collect data on the curce again and again, the size of data reached 20k, it finally passed the first two curves. The I collect data on the third curve repeadly, untill it pass it. Repead these steps, the car finally can drive smoothly around the whole track.
 
 In order to gauge how well the model was working, I split my image and steering angle data into a training and validation set.
-The mse always small on both data set, but it doesn't stop the car drving out of the drack. So I think the model wasn't underfitting or overfitting, just the training data is good enough, or just not enough. So I get more and more training data, especially where it runs out of the track.
+The mse always small on both data set, but it doesn't stop the car drving out of the drack. So I think the model wasn't underfitting or overfitting, just the training data is not good enough, or just not enough. So I get more and more training data, especially where it runs out of the track.
 
 At the end of the process, the vehicle is able to drive autonomously around the track without leaving the road.
 
