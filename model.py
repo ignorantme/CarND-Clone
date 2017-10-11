@@ -8,6 +8,8 @@ from keras.models import Sequential
 from keras.optimizers import Adam
 from keras.layers import Flatten, Dense,Lambda, Convolution2D, MaxPooling2D, Dropout, Cropping2D
 
+
+# Reads the cvs file, add all record to the a list
 lines = []
 with open('capture4/driving_log.csv') as csvfile:
     reader = csv.reader(csvfile)
@@ -15,7 +17,7 @@ with open('capture4/driving_log.csv') as csvfile:
         lines.append(line)
 train_samples, validation_samples = train_test_split(lines, test_size=0.2)
 
-
+# Data generator
 def generator(samples, batch_size=32):
     num_samples = len(samples)
     while 1:
@@ -73,7 +75,7 @@ validation_generator = generator(validation_samples, batch_size=128)
 
 
 
-
+# The LeNet model, tested, but nVidia model performs better
 def LeNet():
     def resize_images(img):
         import tensorflow as tf
@@ -95,17 +97,11 @@ def LeNet():
     model.add(Dense(1, name='steering_angle'))
     return model
 
-
+# The nVidia model
 def nVidia():
-    def resize_images(img):
-        import tensorflow as tf
-        return tf.image.resize_images(img,(160,320))
 
     model = Sequential()
-#   model.add(Lambda(resize_images, input_shape=(160,320,3)))
-
     model.add(Lambda(lambda x: (x / 255.0) - 0.5,input_shape=(160,320,3)))
-#    model.add(Lambda(lambda x: (x / 255.0) - 0.5))
     model.add(Cropping2D(cropping=((60,20), (0,0))))
     model.add(Convolution2D(24,5,5, border_mode="same",subsample=(2,2), activation='relu'))
     model.add(Convolution2D(36,5,5, border_mode="same",subsample=(2,2), activation='relu'))
